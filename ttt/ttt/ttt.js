@@ -1,41 +1,52 @@
-let express = require('express')
+var express = require('express')
 
-let app = express()
+var app = express()
 
 app.set('port', process.env.PORT || 5566)
 
 // Tool: Handlebars
-let handlebars = require('express3-handlebars').create({ defaultLayout: 'main'})
-app.engine(('handlebars', handlebars.engine))
-app.set('vie engine', 'handlebars')
+var handlebars = require('express3-handlebars').create({ defaultLayout: 'main'})
+app.engine('handlebars', handlebars.engine)
+app.set('view engine', 'handlebars')
 
 // Port: Main
-app.get('/', (req, res) => {
-    res.type('text/plain')
-    res.send('TTT')
+app.get('/', function(req, res) {
+    // res.type('text/plain')
+    // res.send('TTT')
+
+    res.render('home')
 })
 
-app.get('/about', (req, res) => {
-    res.type('text/plain')
-    res.send('TTT | About')
+app.get('/about', function(req, res) {
+    // res.type('text/plain')
+    // res.send('TTT | About')
+
+    res.render('about')
 })
 
 // Port: Wrong
-app.use((req, res, next) => {
-    res.type('text/plain')
+app.use(function(req, res, next) {
+    // res.type('text/plain')
+    // res.status(404)
+    // res.send('404 - Not Found.')
+
     res.status(404)
-    res.send('404 - Not Found.')
+    res.render('404')
 })
 
-app.use((err, req, res, next) => {
+app.use(function(err, req, res, next) {
+    // console.error(err.stack)
+    // res.style('text/plain')
+    // res.status(500)
+    // res.send('500 - Server Error.')
+
     console.error(err.stack)
-    res.style('text/plain')
     res.status(500)
-    res.send('500 - Server Error.')
+    res.render('500')
 })
 
 // Port: Port
-app.listen(app.get('port'), () => {
+app.listen(app.get('port'), function() {
     console.log('===>Express started on http://localhost:'
         + app.get('port')
         + '; press Ctrl-C to stop.')
