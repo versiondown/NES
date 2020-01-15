@@ -1,0 +1,12 @@
+{
+  "name": "ttt",
+  "version": "1.0.0",
+  "description": "VES | Travel Travel Travel",
+  "main": "ttt.js",
+  "author": "ezhq",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express3-handlebars": "^0.5.2"
+  }
+}
