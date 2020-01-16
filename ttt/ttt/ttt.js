@@ -11,14 +11,6 @@ app.set('view engine', 'handlebars')
 
 app.use(express.static(__dirname + '/public'))
 
-
-// Router: Test
-app.use(function (req, res, next) {
-    res.locals.showTests = app.get('env') !== 'production'
-        && req.query.test === '1'
-    next()
-})
-
 // Router: Main
 app.get('/', function(req, res) {
     res.render('home')
