@@ -1,21 +1,23 @@
 var express = require('express')
 var app = express()
+var handlebars = require('express3-handlebars').create({ defaultLayout: 'main'})
+var quote = require('./lib/quote')
+
 app.set('port', process.env.PORT || 5566)
 
 // Tool: Handlebars
-var handlebars = require('express3-handlebars').create({ defaultLayout: 'main'})
 app.engine('handlebars', handlebars.engine)
 app.set('view engine', 'handlebars')
 
 app.use(express.static(__dirname + '/public'))
 
-// Data
-var quotes = [
-    "Vincent Van Gogh: I am seeking, I am striving, I am in it with all my heart.",
-    "Victor Hugo: An intelligent hell would be better than a stupid paradise.",
-    "Zig Ziglar: You must manage yourself before you can lead someone else.",
-    "Louise Hay: I choose to make the rest of my life the best of my life.",
-]
+// // Data
+// var quotes = [
+//     "Vincent Van Gogh: I am seeking, I am striving, I am in it with all my heart.",
+//     "Victor Hugo: An intelligent hell would be better than a stupid paradise.",
+//     "Zig Ziglar: You must manage yourself before you can lead someone else.",
+//     "Louise Hay: I choose to make the rest of my life the best of my life.",
+// ]
 
 // Router: Main
 app.get('/', function(req, res) {
@@ -29,8 +31,10 @@ app.get('/about', function(req, res) {
     // res.type('text/plain')
     // res.send('TTT | About')
 
-    var randomeQuote = quotes[Math.floor(Math.random() * quotes.length)]
-    res.render('about', {quote: randomeQuote})
+    // var randomeQuote = quotes[Math.floor(Math.random() * quotes.length)]
+    // res.render('about', {quote: randomeQuote})
+
+    res.render('about', { quote: quote.getQuote() })
 })
 
 // Router: Wrong
